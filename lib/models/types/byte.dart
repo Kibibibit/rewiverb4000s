@@ -1,14 +1,13 @@
-
-
 class Byte {
-
   late int _value;
 
   Byte(int value) {
     setValue(value);
   }
 
-  int get value {return _value;}
+  int get value {
+    return _value;
+  }
 
   void setValue(int v) {
     _value = v % 256;
@@ -24,4 +23,9 @@ class Byte {
     return this;
   }
 
+  @override
+  bool operator ==(other) => other is Byte && (other.value == _value);
+
+  @override
+  int get hashCode => _value;
 }

@@ -10,13 +10,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  geoff:
+    git: https://github.com/Kibibibit/geoff.git
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  geoff:
-    git: https://github.com/Kibibibit/geoff.git
+  
   flutter_lints: ^1.0.0
 
 flutter:
