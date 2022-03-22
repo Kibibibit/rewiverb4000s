@@ -1,16 +1,17 @@
 import 'dart:typed_data';
 import 'package:rewiverb4000s/models/types/byte.dart';
 
-/// Absolutely no clue what this is
+/// This is a non registered paramter number.
+/// Basically a 16 bit integer.
 class Nrpn {
   late Byte lsb;
   late Byte msb;
   late Byte offset;
 
   void decode(Uint8List raw) {
-    lsb = Byte(raw.elementAt(0));
-    msb = Byte(raw.elementAt(1));
-    offset = Byte(raw.elementAt(2));
+    lsb = Byte(raw[0]);
+    msb = Byte(raw[1]);
+    offset = Byte(raw[2]);
   }
 
   Uint8List toBytes() {
