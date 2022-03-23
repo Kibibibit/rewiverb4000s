@@ -71,6 +71,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  ffi:
+    dependency: transitive
+    description:
+      name: ffi
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.2"
   fixnum:
     dependency: transitive
     description:
@@ -104,6 +111,29 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  flutter_midi_command:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: a943ab58fd979ae33ee46d675b77561068fce5ba
+      url: "https://github.com/Kibibibit/FlutterMidiCommand.git"
+    source: git
+    version: "0.4.5-7"
+  flutter_midi_command_linux:
+    dependency: transitive
+    description:
+      name: flutter_midi_command_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5"
+  flutter_midi_command_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_midi_command_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -216,6 +246,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1+1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -263,6 +300,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
+  tuple:
+    dependency: transitive
+    description:
+      name: tuple
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   typed_data:
     dependency: transitive
     description:

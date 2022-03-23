@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rewiverb4000s/pages/serialpage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
           controller: _controller,
           children: [
             Container(color: Colors.red,),
-            Container(color: Colors.blue,)
+            const SerialPage(),
           ],
           onPageChanged: (index) {
             setState(() => currentIndex = index);

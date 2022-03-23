@@ -10,7 +10,12 @@ class Byte {
   }
 
   void setValue(int v) {
-    _value = v % 256;
+    if (v >= 0) {
+      _value = v % 256;
+    } else {
+      add(256);
+    }
+    
   }
 
   Byte add(int v) {
