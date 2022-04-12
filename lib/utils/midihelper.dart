@@ -2,11 +2,12 @@
 
 import 'dart:typed_data';
 
+import 'package:flutter_midi_command/flutter_midi_command.dart';
 import 'package:geoff/utils/system/log.dart';
 import 'package:rewiverb4000s/models/patch/ewi_patch.dart';
 import 'package:rewiverb4000s/models/sendmsg.dart';
 import 'package:rewiverb4000s/models/types/byte.dart';
-import 'package:flutter_midi_command/flutter_midi_command.dart';
+import 'package:rewiverb4000s/utils/midireciever.dart';
 
 class MidiHelper {
   static final Byte MIDI_PRESET_DUMP = Byte(0x00);
@@ -53,11 +54,20 @@ class MidiHelper {
   MidiDevice? _midiDevice;
   bool _devicePresent = false;
 
+  late MidiReciever _reciever;
+
   MidiHelper() {
+    _reciever = MidiReciever(this);
     _midiCommand = MidiCommand();
   }
 
-  MidiCommand get midiCommand {return _midiCommand;}
+  MidiReciever get reciever {
+    return _reciever;
+  }
+
+  MidiCommand get midiCommand {
+    return _midiCommand;
+  }
 
   Future<bool> getDevicePresent() async {
     await _midiCommand.devices.then((List<MidiDevice>? devices) {
@@ -84,8 +94,18 @@ class MidiHelper {
     }
   }
 
+  void disconnect() {
+    if (_devicePresent) {
+      _midiCommand.disconnectDevice(_midiDevice!);
+      _midiDevice = null;
+      _devicePresent = false;
+    } else {
+      _logger.warning("No device to disconnect");
+    }
+  }
+
   void requestPatch(final int p) {
-    if (p <= 0 || p > EwiPatch.EWI_NUM_PATCHES) {
+    if (p < 0 || p >= EwiPatch.EWI_NUM_PATCHES) {
       _logger.error("Attempt to request out-of-range patch ($p)");
       return;
     }
@@ -101,12 +121,11 @@ class MidiHelper {
     reqMsg[6] = MIDI_SYSEX_TRAILER.value; // 0xf7 -9.
 
     if (_devicePresent) {
-      _logger.info("Seding data!");
+      _logger.info("Sending data!");
       _midiCommand.sendData(reqMsg);
     } else {
       _logger.warning("No device!");
     }
-    
 
     //bool gotIt = false;
 

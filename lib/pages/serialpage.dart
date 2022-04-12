@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -28,13 +29,23 @@ class _SerialPageState extends State<SerialPage> {
       _setupSubscription = midiHelper.midiCommand.onMidiSetupChanged?.listen((event) async {
         _logger.debug("SETUP: $event");
       });
-      _dataSubscription = midiHelper.midiCommand.onMidiDataReceived?.listen((event) async { 
-        _logger.debug("GOT: (length: ${event.data.length}) ${event.data} from ${event.device.id}");
+      _dataSubscription = midiHelper.midiCommand.onMidiDataReceived?.listen((event) async {
+        //_logger.debug("GOT: (length: ${event.data.length}) ${event.data} from ${event.device.id}");
+        midiHelper.reciever.recieveMessage(event.data);
       });
       _sentStream = midiHelper.midiCommand.onMidiDataSent.listen((event) {
         _logger.debug("SENT: ${event.toString()}");
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _setupSubscription?.cancel();
+    _dataSubscription?.cancel();
+    _sentStream?.cancel();
+    midiHelper.disconnect();
+    super.dispose();
   }
 
   @override
@@ -55,9 +66,10 @@ class _SerialPageState extends State<SerialPage> {
         ),
         ElevatedButton(
           onPressed: () async {
-            midiHelper.requestPatch(0);
-            midiHelper.requestPatch(99);
-            midiHelper.requestPatch(39);
+            for (int i = 0; i < 20; i++) {
+              midiHelper.requestPatch(i);
+              sleep(const Duration(milliseconds: 100));
+            }
           },
           child: const Text("Ask for packet"),
         ),

@@ -97,7 +97,13 @@ class EwiPatch {
   }
 
   void setName(String name) {
-    this.name = name.substring(0, EWI_PATCHNAME_LENGTH);
+    this.name = name;
+    if (this.name.length > EWI_PATCHNAME_LENGTH) {
+      this.name = this.name.substring(0, EWI_PATCHNAME_LENGTH);
+    }
+    while (this.name.length < EWI_PATCHNAME_LENGTH) {
+      this.name += " ";
+    }
     nameToBlob();
   }
 
